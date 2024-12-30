@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP Toggle GUI</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: #000;
+            overflow: hidden;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Vùng hiển thị */
+        #game-area {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            background-color: #222;
+        }
+
+        /* ESP Box */
+        .esp-box {
+            position: absolute;
+            border: 2px solid red;
+            width: 100px;
+            height: 150px;
+        }
+
+        /* ESP Line */
+        .esp-line {
+            position: absolute;
+            height: 2px;
+            width: 300px;
+            background-color: lime;
+        }
+
+        /* FOV Circle */
+        .fov-circle {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border: 2px solid cyan;
+            border-radius: 50%;
+        }
+
+        /* GUI Panel */
+        .gui-panel {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid #555;
+            z-index: 1000;
+        }
+
+        .gui-panel button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .gui-panel button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Ẩn các thành phần khi cần */
+        .hidden {
+            visibility: hidden !important; /* Hoàn toàn ẩn */
+        }
+    </style>
+</head>
+<body>
+    <div id="game-area">
+        <!-- ESP Thành phần -->
+        <div class="esp-box" style="top: 50px; left: 100px;"></div>
+        <div class="esp-line" style="top: 200px; left: 50px;"></div>
+        <div class="fov-circle" style="top: 300px; left: 200px;"></div>
+        <div class="esp-box" style="top: 150px; left: 400px;"></div>
+    </div>
+
+    <!-- GUI Panel -->
+    <div class="gui-panel">
+        <button id="toggle-btn" onclick="toggleESP()">Ẩn ESP</button>
+    </div>
+
+    <script>
+        let espVisible = true; // Trạng thái mặc định: ESP hiện
+
+        // Hàm bật/tắt các thành phần ESP
+        function toggleESP() {
+            const elements = document.querySelectorAll('.esp-box, .esp-line, .fov-circle');
+            espVisible = !espVisible; // Đảo trạng thái
+            elements.forEach(el => {
+                el.classList.toggle('hidden', !espVisible); // Thêm/loại bỏ class "hidden"
+            });
+
+            // Cập nhật nội dung nút
+            const toggleButton = document.getElementById('toggle-btn');
+            toggleButton.textContent = espVisible ? 'Ẩn ESP' : 'Hiện ESP';
+        }
+    </script>
+</body>
+</html>
